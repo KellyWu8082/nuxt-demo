@@ -1,25 +1,20 @@
 <script setup lang="ts">
-import { userLoginSchema, type userLoginType } from "../validators/user";
 import { useForm } from "vee-validate";
+import { userSignupSchema, type userSignupType } from "../validators/user";
 import { toTypedSchema } from "@vee-validate/zod";
-import ValidateInput from "~/components/ValidateInput.vue";
 definePageMeta({
   layout: "custom",
 });
-const currentUser = useCurrentUser();
 
-const { values, errors, defineField, handleSubmit, isSubmitting } =
-  useForm<userLoginType>({
-    validationSchema: toTypedSchema(userLoginSchema),
-  });
+const { values, errors, handleSubmit, isSubmitting } = useForm<userSignupType>({
+  validationSchema: toTypedSchema(userSignupSchema),
+});
 
-const login = handleSubmit(async (values) => {
-  const data = await $fetch("/api/users/login", {
+const signup = handleSubmit(async (values) => {
+  const data = await $fetch("/api/users/signup", {
     body: values,
     method: "POST",
   });
-  currentUser.value.isLogin = true;
-  currentUser.value.username = "Kelly";
   navigateTo("/");
 });
 </script>
@@ -37,10 +32,11 @@ const login = handleSubmit(async (values) => {
       </p>
 
       <form
-        @submit="login"
+        @submit.prevent="signup"
         class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
       >
-        <p class="text-center text-lg font-medium">Sign in to your account</p>
+        <p class="text-center text-lg font-medium">Sign up to your account</p>
+
         <ValidateInput name="email" placeholder="Enter Email" />
         <ValidateInput
           name="password"
@@ -48,16 +44,22 @@ const login = handleSubmit(async (values) => {
           type="password"
         />
 
+        <ValidateInput
+          name="confirmPwd"
+          placeholder="Confirm Password"
+          type="password"
+        />
+
         <button
           type="submit"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
         >
-          {{ isSubmitting ? "提交中..." : "登录" }}
+          注册
         </button>
 
         <p class="text-center text-sm text-gray-500">
-          没有账号?
-          <a class="underline" @click="navigateTo('/signup')">注册</a>
+          已有账号?
+          <a class="underline" @click="navigateTo('/login')">登录</a>
         </p>
       </form>
     </div>
