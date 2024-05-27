@@ -10,14 +10,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.16.0",
+    "@types/lodash-es": "^4.17.12",
     "@vee-validate/zod": "^4.12.8",
+    "lodash-es": "^4.17.21",
     "nuxt": "^3.11.2",
+    "nuxt-mongoose": "^1.0.6",
     "vee-validate": "^4.12.8",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.0"
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "nuxt-chatgpt": "^0.2.3"
   }
 }
