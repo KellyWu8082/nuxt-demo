@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-primevue', '@nuxt/ui', '@nuxtjs/tailwindcss', 'nuxt-chatgpt'],
+  modules: ['nuxt-primevue', '@nuxt/ui', '@nuxtjs/tailwindcss'],
   typescript: {
     shim: false
   },
@@ -9,8 +9,5 @@ export default defineNuxtConfig({
   css: ['primevue/resources/themes/aura-light-green/theme.css'],
   tailwindcss: {
     exposeConfig: true
-  },
-  chatgpt: {
-    apiKey: ''
   },
 })
