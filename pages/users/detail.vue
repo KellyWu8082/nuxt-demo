@@ -3,27 +3,9 @@ import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
 import { UInput, USelect, UToggle, FileUpload } from "#components";
 import { omitBy, isNil, isEmpty } from "lodash-es";
+import { userCreateSchema } from "~/validators/user";
 
-const schema = z.object({
-  username: z.string().min(3),
-  nickName: z.string().optional(),
-  picture: z.string().url().optional(),
-  type: z.enum(["email", "phone", "oauth"]),
-  email: z.string().email().optional(),
-  phone: z
-    .string()
-    .refine((val) => /^1[3-9]\d{9}$/.test(val), "手机号格式错误")
-    // .regex(/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/)
-    .optional(),
-  oauthId: z.string().optional(),
-  provider: z.enum(["github", "gitee"]).optional(),
-  password: z.string().min(6).optional(),
-  passwordConfirmation: z.string().min(6).optional(),
-  role: z.enum(["admin", "user"]).optional(),
-  disabled: z.boolean().optional(),
-});
-
-type Schema = z.output<typeof schema>;
+type Schema = z.output<typeof userCreateSchema>;
 
 const state = reactive<{
   username: string;
@@ -161,7 +143,7 @@ const filterUserData = computed(() => {
 <template>
   <div class="w-1/3 mx-auto">
     <UForm
-      :schema="schema"
+      :schema="userCreateSchema"
       :state="filterUserData"
       class="space-y-4"
       @submit="onSubmit"
